@@ -112,3 +112,76 @@ h1 span{color:var(--red)}
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}
 }
+
+
+/* Client onboarding and responsive layout refinements */
+.nav .nav-cta{background:var(--red);color:#fff;padding:12px 16px;border-radius:2px;font-weight:700}
+.nav .nav-cta:hover{background:#bd1d2a;color:#fff}
+.portal-public{overflow:hidden}
+.portal-intro{padding-top:64px;padding-bottom:28px}
+.portal-intro h1{max-width:850px}
+.onboarding-wrap{padding-top:12px;padding-bottom:72px}
+.onboard-card{width:100%;max-width:900px;margin:0 auto;background:#fff;border:1px solid var(--line);padding:clamp(22px,4vw,48px);box-shadow:0 18px 55px rgba(0,0,0,.045)}
+.onboard-progress{margin-bottom:34px}
+.onboard-progress>div:first-child{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:14px}
+.onboard-progress span{font-size:10px;font-weight:700;letter-spacing:1.4px;color:var(--red)}
+.onboard-progress b{font:600 13px Manrope,sans-serif;text-align:right}
+.progress-track{height:4px;background:#eee;overflow:hidden}
+.progress-track i{display:block;height:100%;background:var(--red);transition:width .25s ease}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.field{display:flex;flex-direction:column;gap:9px;min-width:0;font-size:12px;font-weight:700;color:#333}
+.field>span i{color:var(--red);font-style:normal}
+.field input,.field select,.field textarea{width:100%;min-width:0;border:1px solid #d9d9d9;border-radius:2px;background:#fff;padding:14px 13px;font:400 14px 'DM Sans',sans-serif;color:#111;outline:none;transition:border-color .2s,box-shadow .2s}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(227,38,54,.09)}
+.field textarea{resize:vertical;min-height:112px}
+.field-wide{grid-column:1/-1}
+.form-hint{font-size:14px;color:#666;line-height:1.6;margin:0 0 18px}
+.service-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.option{display:flex;align-items:center;gap:12px;min-width:0;text-align:left;border:1px solid var(--line);background:#fff;padding:14px;font:500 13px 'DM Sans',sans-serif;color:#333;cursor:pointer;transition:border-color .2s,background .2s}
+.option span{display:grid;place-items:center;flex:0 0 22px;width:22px;height:22px;border:1px solid #ccc;border-radius:50%;font-size:12px}
+.option.selected{border-color:var(--red);background:#fff7f7}
+.option.selected span{background:var(--red);border-color:var(--red);color:#fff}
+.project-fields{margin-top:22px}
+.form-actions{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:30px;padding-top:22px;border-top:1px solid var(--line)}
+.form-actions .btn{border:0;cursor:pointer}
+.form-actions .btn:disabled{opacity:.55;cursor:not-allowed}
+.btn-quiet{border:0;background:transparent;padding:12px 0;font:700 13px 'DM Sans',sans-serif;cursor:pointer}
+.signin-prompt,.privacy-note,.onboard-footnote{font-size:12px;line-height:1.7;color:#777}
+.signin-prompt a{color:var(--red);font-weight:700}
+.account-note{grid-column:1/-1;background:#f7f6f3;padding:18px}
+.account-note p{font-size:13px;line-height:1.6;color:#666}
+.account-note span{font-size:13px;font-weight:700;overflow-wrap:anywhere}
+.privacy-note{grid-column:1/-1;margin:0}
+.form-error{padding:12px 14px;background:#fff0f0;border-left:3px solid var(--red);color:#9c1722;font-size:13px;line-height:1.5}
+.onboard-success{max-width:620px;margin:auto;padding:20px 0}
+.onboard-success h2{font:700 clamp(30px,5vw,44px) Manrope,sans-serif;letter-spacing:-1.5px}
+.onboard-success>p:not(.eyebrow){color:#666;line-height:1.7}
+.success-mark{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:#e8f6ed;color:#187b3c;font-size:22px;margin-bottom:20px}
+.onboard-footnote{text-align:center;margin:18px auto 0}
+@media(max-width:760px){
+  .nav{top:73px;left:0;right:0;padding:18px 18px 22px;box-shadow:0 14px 25px rgba(0,0,0,.06)}
+  .nav .nav-cta{width:100%;text-align:center;padding:14px 16px}
+  .portal-intro{padding-top:44px;padding-bottom:20px}
+  .portal-intro h1{font-size:clamp(42px,12vw,62px);line-height:1.02}
+  .onboarding-wrap{padding-top:8px;padding-bottom:48px}
+  .onboard-card{padding:22px 18px}
+  .form-grid,.service-options{grid-template-columns:minmax(0,1fr)}
+  .field-wide,.account-note,.privacy-note{grid-column:auto}
+  .onboard-progress>div:first-child{align-items:flex-start;flex-direction:column;gap:6px}
+  .onboard-progress b{text-align:left}
+  .form-actions{align-items:stretch;flex-wrap:wrap}
+  .form-actions .btn{justify-content:center;flex:1 1 100%}
+  .signin-prompt{width:100%}
+  .footer-top{grid-template-columns:1fr}
+  .footer-top p,.footer-links{grid-column:auto}
+}
+@media(max-width:420px){
+  .wrap{width:calc(100% - 28px)}
+  .hero{padding-top:48px}
+  h1{font-size:clamp(40px,12.5vw,54px);letter-spacing:-1.5px}
+  .actions{align-items:stretch;flex-direction:column;gap:16px}
+  .actions .btn{justify-content:center;width:100%}
+  .actions .text-link{align-self:flex-start}
+  .onboard-card{padding:18px 14px}
+  .option{font-size:12px;padding:12px}
+}
