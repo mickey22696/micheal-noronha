@@ -15,7 +15,7 @@ const serviceOptions = [
 const initial = {
   fullName: "", email: "", phone: "", jobTitle: "", companyName: "",
   companyWebsite: "", industry: "", companySize: "", country: "India",
-  services: [], budget: "", timeline: "", projectBrief: "", password: "", confirmPassword: ""
+  services: [], budget: "", timeline: "", projectBrief: ""
 };
 
 export default function OnboardingForm() {
@@ -39,10 +39,6 @@ export default function OnboardingForm() {
       return "Please add your business name, industry and country. If you are a freelancer, use your own name as the business name.";
     }
     if (step === 3 && form.services.length === 0) return "Choose at least one service so I know what you need.";
-    if (step === 4) {
-      if (form.password.length < 8) return "Use a password with at least 8 characters.";
-      if (form.password !== form.confirmPassword) return "Your passwords do not match.";
-    }
     return "";
   }
 
@@ -57,9 +53,8 @@ export default function OnboardingForm() {
       delete pending.confirmPassword;
       localStorage.setItem("mn_pending_onboarding", JSON.stringify(pending));
 
-      const response = await nhost.auth.signUpEmailPassword({
-        email: form.email.trim(),
-        password: form.password,
+      const response = await nhost.auth.signInPasswordlessEmail({
+        email: form.email.trim().toLowerCase(),
         options: {
           displayName: form.fullName.trim(),
           metadata: {
@@ -72,13 +67,8 @@ export default function OnboardingForm() {
         codeChallenge: challenge
       });
 
-      if (response.body?.session) {
-        await saveOnboarding(pending);
-        localStorage.removeItem("mn_pending_onboarding");
-        router.push("/portal");
-        return;
-      }
-      setNotice("Your account has been created. Check your inbox for the verification email. After verifying, you’ll be taken into your client portal.");
+      if (response.error || response.body?.error) throw new Error(response.body?.message || "We couldn't send your sign-in link.");
+      setNotice("We've emailed you a secure sign-in link. Open it on this device to verify your email and enter your client portal.");
     } catch (err) {
       setError(err?.message || "We couldn't create your account. Please try again.");
     } finally {
@@ -100,7 +90,7 @@ export default function OnboardingForm() {
         ) : (
           <>
             <div className="onboard-progress">
-              <div><span>STEP 0{step} / 04</span><b>{["Personal details", "Your business", "Project requirements", "Create account"][step - 1]}</b></div>
+              <div><span>STEP 0{step} / 04</span><b>{["Personal details", "Your business", "Project requirements", "Email sign-in"][step - 1]}</b></div>
               <div className="progress-track"><i style={{ width: (step * 25) + "%" }} /></div>
             </div>
             {step === 1 && <div className="form-grid">
@@ -126,8 +116,7 @@ export default function OnboardingForm() {
               </div>
             </>}
             {step === 4 && <div className="form-grid">
-              <div className="account-note"><b>Your client portal account</b><p>Use this email and password to sign in, follow your project and access updates later.</p><span>{form.email}</span></div>
-              <Field label="Create password" required><input type="password" autoComplete="new-password" value={form.password} onChange={(e) => update("password", e.target.value)} placeholder="At least 8 characters" /></Field>
+              <div className="account-note"><b>Your client portal access</b><p>No password to create or remember. We'll email a secure sign-in link whenever you want to access your workspace.</p><span>{form.email}</span></div>
               <Field label="Confirm password" required><input type="password" autoComplete="new-password" value={form.confirmPassword} onChange={(e) => update("confirmPassword", e.target.value)} placeholder="Enter it again" /></Field>
               <p className="privacy-note">By creating an account, you agree that the details above may be used to respond to your enquiry and manage your project. Your portal data is private to your account.</p>
             </div>}
@@ -135,7 +124,7 @@ export default function OnboardingForm() {
             <div className="form-actions">
               {step > 1 ? <button type="button" className="btn-quiet" onClick={() => { setError(""); setStep(step - 1); }}>← Back</button> : <span className="signin-prompt">Already a client? <Link href="/portal/sign-in">Sign in</Link></span>}
               {step < 4 ? <button type="button" className="btn primary" onClick={() => { const issue = validateStep(); if (issue) setError(issue); else { setError(""); setStep(step + 1); } }}>Continue ↗</button> :
-                <button type="button" className="btn primary" disabled={busy} onClick={() => { const issue = validateStep(); if (issue) setError(issue); else submit(); }}>{busy ? "Creating account…" : "Create my client account ↗"}</button>}
+                <button type="button" className="btn primary" disabled={busy} onClick={() => { const issue = validateStep(); if (issue) setError(issue); else submit(); }}>{busy ? "Sending link…" : "Email my secure sign-in link ↗"}</button>}
             </div>
           </>
         )}
