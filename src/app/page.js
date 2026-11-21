@@ -11,7 +11,7 @@ export default function HomePage() {
           Thoughtful design and dependable technology for freelancers, ambitious startups and established businesses.
         </p>
         <div className="actions">
-          <Link className="btn primary" href="/onboard/">Start a project ↗</Link>
+          <Link className="btn primary" href="/onboard/">Start onboarding ↗</Link>
           <Link className="text-link" href="/services/">Explore services</Link>
         </div>
         <div className="hero-note">Strategy · Design · Development · Technology</div>
