@@ -6,11 +6,14 @@ const phrase = "Make your next\ndigital move matter.";
 const highlightLength = "digital move".length;
 
 export default function TypewriterHeadline() {
-  const [visibleCount, setVisibleCount] = useState(0);
+  // Render the complete heading on the server for accessibility and SEO,
+  // then animate it in once the page hydrates.
+  const [visibleCount, setVisibleCount] = useState(phrase.length);
 
   useEffect(() => {
     let timer;
     let position = 0;
+    setVisibleCount(0);
 
     const type = () => {
       if (position < phrase.length) {
