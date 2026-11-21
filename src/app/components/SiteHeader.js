@@ -37,7 +37,7 @@ export default function SiteHeader() {
         </button>
         <nav className={`nav${open ? " open" : ""}`} aria-label="Main navigation">
           {links.map(([label, href]) => (
-            <Link key={href} href={href} onClick={() => setOpen(false)}>
+            <Link key={href} href={href} className={href === "/onboard/" ? "nav-cta" : undefined} onClick={() => setOpen(false)}>
               {label}
             </Link>
           ))}
