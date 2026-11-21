@@ -11,7 +11,7 @@ export default function HomePage() {
           Thoughtful design and dependable technology for freelancers, ambitious startups and established businesses.
         </p>
         <div className="actions">
-          <Link className="btn primary" href="/contact/">Start a project ↗</Link>
+          <Link className="btn primary" href="/onboard/">Start a project ↗</Link>
           <Link className="text-link" href="/services/">Explore services</Link>
         </div>
         <div className="hero-note">Strategy · Design · Development · Technology</div>
@@ -54,7 +54,7 @@ export default function HomePage() {
         <div className="wrap cta-inner">
           <p className="eyebrow">HAVE A PROJECT IN MIND?</p>
           <h2>Let&apos;s make something<br />that moves you forward.</h2>
-          <Link className="btn light" href="/contact/">Tell me about it ↗</Link>
+          <Link className="btn light" href="/onboard/">Tell me about it ↗</Link>
         </div>
       </section>
     </main>
