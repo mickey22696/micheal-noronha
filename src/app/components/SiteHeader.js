@@ -9,7 +9,8 @@ const links = [
   ["Who I help", "/who-we-help/"],
   ["Approach", "/approach/"],
   ["About", "/about/"],
-  ["Contact", "/contact/"]
+  ["Contact", "/contact/"],
+  ["Get started", "/onboard/"]
 ];
 
 export default function SiteHeader() {
