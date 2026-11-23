@@ -35,6 +35,6 @@ export default function VerifyClient() {
 
   return <main className="portal-public"><section className="wrap onboarding-wrap"><div className="onboard-card verify-card">
     <p className="eyebrow">ACCOUNT VERIFICATION</p><h2>{failed ? "We couldn't verify that link." : "Just a moment…"}</h2><p>{message}</p>
-    {failed && <Link className="btn primary" href="/portal/sign-in">Go to sign in ↗</Link>}
+    {failed && <div className="verify-fallback"><Link className="btn primary" href="/portal/sign-in">Try sign in again ↗</Link><p className="portal-muted">If this domain keeps failing, open the backup sign-in page and request a fresh email link:</p><a className="btn-quiet" href="https://micheal-noronha.vercel.app/portal/sign-in">Open Vercel backup sign-in ↗</a></div>}
   </div></section></main>;
 }
